@@ -93,3 +93,33 @@ t = 0:Ts:Ts*(length(u_star)-1);
 ws_x_star =[[t]',x_star'];
 ws = [t',u_star];
 
+
+%% Plotting
+simulation = simout_3;
+u_est = simulation(:,1);
+travel = simulation(:,2);
+travel_rate = simulation(:,3);
+pitch = simulation(:,4);
+pitch_rate = simulation(:,5);
+t2 = 0:35/(length(pitch)-1):35;
+
+figure
+subplot(511)
+stairs(t,u*(180/pi)); ; hold on; plot(t2,u_est*(180/pi)); hold off; grid
+ylabel('u')
+subplot(512)
+plot(t,x1*(180/pi),'mo'); hold on; plot(t2,travel); hold off; grid
+ylabel('travel'); legend('Estimated travel','Measured travel');
+subplot(513)
+plot(t,x2*(180/pi),'mo'); hold on; plot(t2,travel_rate); hold off; grid
+ylabel('travel rate'); legend('Estimated travel rate','Measured travel rate','Location','Southeast');
+subplot(514)
+plot(t,x3*(180/pi),'mo'); hold on; plot(t2,pitch); hold off; grid
+ylabel('pitch'); legend('Estimated pitch','Measured pitch');
+subplot(515)
+plot(t,x4*(180/pi),'mo'); hold on; plot(t2,pitch_rate); hold off; grid
+ylabel('pitch rate'); legend('Estimated pitch rate','Measured pitch rate');
+xlabel('time [s]')
+
+
+
