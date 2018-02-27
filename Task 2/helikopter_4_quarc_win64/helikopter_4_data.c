@@ -3,9 +3,9 @@
  *
  * Code generation for model "helikopter_4".
  *
- * Model version              : 1.178
+ * Model version              : 1.179
  * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
- * C source code generated on : Tue Feb 20 16:45:31 2018
+ * C source code generated on : Tue Feb 27 15:59:50 2018
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -18,6 +18,13 @@
 
 /* Block parameters (auto storage) */
 P_helikopter_4_T helikopter_4_P = {
+  /*  Variable: K
+   * Referenced by: '<Root>/Gain'
+   */
+  { -0.87872924065549007, -1.696919204605319E-16, -2.78104022673253,
+    -4.2214644398853972E-16, 1.2939259010167758, 1.8825179583773325E-16,
+    0.31796609457107528, 4.5558749414815564E-17, 1.130177093856548E-16,
+    -9.71158266477643E-19, 4.1949959273051959E-16, 1.577841429399975E-17 },
   11.484879374787633,                  /* Variable: K_ed
                                         * Referenced by: '<S4>/K_ed'
                                         */
@@ -316,6 +323,9 @@ P_helikopter_4_T helikopter_4_P = {
                                         */
   57.295779513082323,                  /* Expression: 180/pi
                                         * Referenced by: '<S8>/Gain'
+                                        */
+  0.017453292519943295,                /* Expression: pi/180
+                                        * Referenced by: '<S3>/Gain1'
                                         */
   0.017453292519943295,                /* Expression: pi/180
                                         * Referenced by: '<S2>/Gain1'

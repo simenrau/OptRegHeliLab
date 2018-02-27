@@ -5,10 +5,8 @@ lambda_t = (2*pi)/3;
 q1 = 1; 
 q2 = 1; 
 N=40;
- c = zeros(N,1);
- for k=1:N
-     c(k) = alpha*exp(-beta*(z(1+(k-1)*6) - lambda_t))^2 - z(5+(k-1)*6);
- end
+c = zeros(N,1);
+c = alpha*exp(-beta*(z(1:6:N*6)-lambda_t).^2)-z(5:6:N*6);
 
 c_eq = [];
 end 

@@ -3,9 +3,9 @@
  *
  * Code generation for model "helikopter_4".
  *
- * Model version              : 1.178
+ * Model version              : 1.179
  * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
- * C source code generated on : Tue Feb 20 16:45:31 2018
+ * C source code generated on : Tue Feb 27 15:59:50 2018
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -785,7 +785,6 @@
 
 /* Block signals (auto storage) */
 typedef struct {
-  real_T u[2];                         /* '<Root>/Sum4' */
   real_T TravelCounttorad;             /* '<S5>/Travel: Count to rad' */
   real_T Gain;                         /* '<S12>/Gain' */
   real_T travel;                       /* '<Root>/Sum5' */
@@ -797,6 +796,7 @@ typedef struct {
   real_T Gain_e;                       /* '<S7>/Gain' */
   real_T Sum;                          /* '<Root>/Sum' */
   real_T Gain_dg;                      /* '<S8>/Gain' */
+  real_T u[2];                         /* '<Root>/Sum4' */
   real_T TmpSignalConversionAtToWorkspac[8];
   real_T Sum1;                         /* '<Root>/Sum1' */
   real_T Sum2;                         /* '<Root>/Sum2' */
@@ -828,6 +828,12 @@ typedef struct {
     void *DataPtr;
     void *RSimInfoPtr;
   } FromWorkspace_PWORK;               /* '<Root>/From Workspace' */
+
+  struct {
+    void *TimePtr;
+    void *DataPtr;
+    void *RSimInfoPtr;
+  } FromWorkspace1_PWORK;              /* '<Root>/From Workspace1' */
 
   struct {
     void *LoggedData;
@@ -889,6 +895,10 @@ typedef struct {
   struct {
     int_T PrevIndex;
   } FromWorkspace_IWORK;               /* '<Root>/From Workspace' */
+
+  struct {
+    int_T PrevIndex;
+  } FromWorkspace1_IWORK;              /* '<Root>/From Workspace1' */
 } DW_helikopter_4_T;
 
 /* Continuous states (auto storage) */
@@ -941,6 +951,9 @@ typedef struct {
 
 /* Parameters (auto storage) */
 struct P_helikopter_4_T_ {
+  real_T K[12];                        /* Variable: K
+                                        * Referenced by: '<Root>/Gain'
+                                        */
   real_T K_ed;                         /* Variable: K_ed
                                         * Referenced by: '<S4>/K_ed'
                                         */
@@ -1227,6 +1240,9 @@ struct P_helikopter_4_T_ {
                                         * Referenced by: '<S8>/Gain'
                                         */
   real_T Gain1_Gain;                   /* Expression: pi/180
+                                        * Referenced by: '<S3>/Gain1'
+                                        */
+  real_T Gain1_Gain_f;                 /* Expression: pi/180
                                         * Referenced by: '<S2>/Gain1'
                                         */
   real_T Integrator_IC;                /* Expression: 0
