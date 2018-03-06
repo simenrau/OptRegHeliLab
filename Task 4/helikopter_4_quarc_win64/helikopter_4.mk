@@ -129,7 +129,11 @@ RELATIVE_PATH_TO_ANCHOR   = ..
 MODELREF_TARGET_TYPE      = NONE
 
 #-- Support for parallel builds
+<<<<<<< HEAD
 START_DIR         = C:\Users\simenrau\Desktop\heihie\OPTREG~1\TASK4~1
+=======
+START_DIR         = E:\OPTREG~1\TASK4~1
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
 MASTER_ANCHOR_DIR = 
 
 #-- Support multi-instance code

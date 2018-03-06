@@ -3,9 +3,15 @@
  *
  * Code generation for model "helikopter_4".
  *
+<<<<<<< HEAD
  * Model version              : 1.185
  * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
  * C source code generated on : Tue Mar 06 17:40:03 2018
+=======
+ * Model version              : 1.180
+ * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
+ * C source code generated on : Tue Feb 27 21:35:31 2018
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -310,7 +316,11 @@ P_helikopter_4_T helikopter_4_P = {
                                         * Referenced by: '<S7>/Gain'
                                         */
   -30.0,                               /* Expression: -30
+<<<<<<< HEAD
                                         * Referenced by: '<Root>/Constant1'
+=======
+                                        * Referenced by: '<Root>/elavation_offset [deg]'
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
                                         */
   -10.0,                               /* Computed Parameter: ElevationTransferFcn_A
                                         * Referenced by: '<S5>/Elevation: Transfer Fcn'

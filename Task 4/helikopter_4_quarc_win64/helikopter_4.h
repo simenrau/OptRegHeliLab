@@ -3,9 +3,15 @@
  *
  * Code generation for model "helikopter_4".
  *
+<<<<<<< HEAD
  * Model version              : 1.185
  * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
  * C source code generated on : Tue Mar 06 17:40:03 2018
+=======
+ * Model version              : 1.180
+ * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
+ * C source code generated on : Tue Feb 27 21:35:31 2018
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -794,7 +800,11 @@ typedef struct {
   real_T Gain_b;                       /* '<S10>/Gain' */
   real_T ElevationCounttorad;          /* '<S5>/Elevation: Count to rad' */
   real_T Gain_e;                       /* '<S7>/Gain' */
+<<<<<<< HEAD
   real_T elevation;                    /* '<Root>/Sum6' */
+=======
+  real_T Sum;                          /* '<Root>/Sum' */
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
   real_T Gain_dg;                      /* '<S8>/Gain' */
   real_T u[2];                         /* '<Root>/Sum4' */
   real_T TmpSignalConversionAtToWorkspac[8];
@@ -1224,8 +1234,13 @@ struct P_helikopter_4_T_ {
   real_T Gain_Gain_lv;                 /* Expression: 180/pi
                                         * Referenced by: '<S7>/Gain'
                                         */
+<<<<<<< HEAD
   real_T Constant1_Value;              /* Expression: -30
                                         * Referenced by: '<Root>/Constant1'
+=======
+  real_T elavation_offsetdeg_Value;    /* Expression: -30
+                                        * Referenced by: '<Root>/elavation_offset [deg]'
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
                                         */
   real_T ElevationTransferFcn_A;       /* Computed Parameter: ElevationTransferFcn_A
                                         * Referenced by: '<S5>/Elevation: Transfer Fcn'

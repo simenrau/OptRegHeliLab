@@ -423,7 +423,11 @@
 	  section.data(15).logicalSrcIdx = 90;
 	  section.data(15).dtTransOffset = 14;
 	
+<<<<<<< HEAD
 	  ;% helikopter_4_P.Constant1_Value
+=======
+	  ;% helikopter_4_P.elavation_offsetdeg_Value
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
 	  section.data(16).logicalSrcIdx = 91;
 	  section.data(16).dtTransOffset = 15;
 	
@@ -590,7 +594,11 @@
 	  section.data(9).logicalSrcIdx = 8;
 	  section.data(9).dtTransOffset = 8;
 	
+<<<<<<< HEAD
 	  ;% helikopter_4_B.elevation
+=======
+	  ;% helikopter_4_B.Sum
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
 	  section.data(10).logicalSrcIdx = 9;
 	  section.data(10).dtTransOffset = 9;
 	
@@ -910,8 +918,15 @@
   ;%
 
 
+<<<<<<< HEAD
   targMap.checksum0 = 33496848;
   targMap.checksum1 = 2747364283;
   targMap.checksum2 = 2217839343;
   targMap.checksum3 = 3845084763;
+=======
+  targMap.checksum0 = 702381801;
+  targMap.checksum1 = 673923214;
+  targMap.checksum2 = 3704793831;
+  targMap.checksum3 = 2608796625;
+>>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
 
