@@ -134,20 +134,12 @@ t2 = 0:20/(length(pitch)-1):20;
 
 figure
 subplot(811)
-<<<<<<< HEAD
 stairs(t,u_star1*(180/pi),'k'); ; hold on; plot(t2,u_est*(180/pi)); hold on; plot(t,zeros(length(t),1)+30,'--r');
 hold on; plot(t,zeros(length(t),1)-30,'--b'); grid
 ylabel('u_1^*'); legend('u_1','u_1^*');
 subplot(812)
 stairs(t,u_star2*(180/pi),'k'); ; hold on; plot(t2,u_est2*(180/pi)); hold off; grid
 ylabel('u_2^*'); legend('u_2','u_2^*');
-=======
-stairs(t,u_star1*(180/pi),'r'); ; hold on; plot(t2,u_est*(180/pi)); hold off; grid
-ylabel('u_1^*')
-subplot(812)
-stairs(t,u_star2*(180/pi),'r'); ; hold on; plot(t2,u_est2*(180/pi)); hold off; grid
-ylabel('u_2^*')
->>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
 subplot(813)
 plot(t,x1*(180/pi),'ko'); hold on; plot(t2,travel); hold off; grid
 ylabel('travel'); legend('Estimated travel','Measured travel','Location','SouthWest');
@@ -161,11 +153,8 @@ subplot(816)
 plot(t,x4*(180/pi),'ko'); hold on; plot(t2,pitch_rate); hold off; grid
 ylabel('pitch rate'); legend('Estimated pitch rate','Measured pitch rate');
 subplot(817)
-<<<<<<< HEAD
 plot(t,x5*(180/pi),'ko'); hold on; 
-=======
-plot(t,x5*(180/pi),'mo'); hold on; 
->>>>>>> 29b455799cc63d52fe3a4b40e62298412dcf4d14
+
 plot(t2,elevation); hold off; grid
 ylabel('elevation'); legend('Estimated elevation','Measured elevation');
 subplot(818)
