@@ -108,17 +108,18 @@ ylabel('elevation')
 
 figure(2)
 subplot(511)
-stairs(t,u*(180/pi)),grid
-ylabel('u')
+stairs(t,u*(180/pi),'k','LineWidth',2); hold on; plot(t,zeros(length(t),1)+30,'--r'); hold on; 
+plot(t,zeros(length(t),1)-30,'--b'); hold on; grid
+legend('u','upper constraint','lower constraint','Location','NorthEast'); ylabel('u'); title('q = 1','FontSize',13);
 subplot(512)
-plot(t,x1,'m',t,x1,'mo'),grid
-ylabel('lambda')
+plot(t,x1,'r',t,x1,'ko'),grid
+ylabel('\lambda')
 subplot(513)
-plot(t,x2,'m',t,x2','mo'),grid
+plot(t,x2,'r',t,x2','ko'),grid
 ylabel('r')
 subplot(514)
-plot(t,x3,'m',t,x3,'mo'),grid
+plot(t,x3,'r',t,x3,'ko'),grid
 ylabel('p')
 subplot(515)
-plot(t,x4,'m',t,x4','mo'),grid
-xlabel('tid (s)'),ylabel('pdot')
+plot(t,x4,'r',t,x4','ko'),grid
+xlabel('time [s]'),ylabel('$\dot{p}$','interpreter','latex')

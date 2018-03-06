@@ -26,11 +26,12 @@ B_d = Ts*B_c;
 alpha = 0.2;
 beta = 20;
 lambda_t = 2*pi/3;
-q1 = 0.1; 
-q2 = 0.1; 
+q1 = 1; 
+q2 = 1; 
 
 %% QP-problem
 x0 = [pi;0;0;0;0;0];
+u0 = [0;0];
 
 N = 40;
 M = N;
@@ -42,7 +43,6 @@ Q  = gen_q(Q1,R,N,M);
 z = zeros(N*6+2*M,1);
 z_0 = z;
 
-fun = @(z) 0.5*z'*Q*z; 
 
 A1 = A_d;
 B1 = B_d;
@@ -59,6 +59,8 @@ xu(1:mx,1) = Inf*(ones(mx,1));
 xl(3) = -30*pi/180;
 xu(3) = 30*pi/180;
 
+
+
 ul = [-30*pi/180;-inf];
 uu = [30*pi/180;inf];
 
@@ -68,11 +70,12 @@ vlb(320) = 0;
 vub(320) = 0;
 
 %% Solve QP problem with linear model
-options = optimoptions('fmincon','Algorithm','sqp','MaxFunEvals',40000);
-
 tic
+fun = @(z) 0.5*z'*Q*z; 
+options = optimoptions('fmincon','Algorithm', 'active-set', 'MaxFunEvals',600000);
+
 [Z, ZVAL, EXITFLAG] = fmincon(fun,z_0,[],[],A_eq,B_eq,vlb,vub,@Nonlincon,options); % hint: quadprog. Type 'doc quadprog' for more info 
-t1=toc;
+toc;
 
 % Calculate objective value
 phi1 = 0.0;
@@ -127,35 +130,35 @@ pitch = simulation(:,5);
 pitch_rate = simulation(:,6);
 elevation = simulation(:,7);
 elevation_rate = simulation(:,8);
-t2 = 0:35/(length(pitch)-1):35;
+t2 = 0:20/(length(pitch)-1):20;
 
 figure
 subplot(811)
-stairs(t,u_star1*(180/pi)); ; hold on; plot(t2,u_est*(180/pi)); hold off; grid
-ylabel('u_1^*')
+stairs(t,u_star1*(180/pi),'k'); ; hold on; plot(t2,u_est*(180/pi)); hold on; plot(t,zeros(length(t),1)+30,'--r');
+hold on; plot(t,zeros(length(t),1)-30,'--b'); grid
+ylabel('u_1^*'); legend('u_1','u_1^*');
 subplot(812)
-stairs(t,u_star2*(180/pi)); ; hold on; plot(t2,u_est*(180/pi)); hold off; grid
-ylabel('u_2^*')
+stairs(t,u_star2*(180/pi),'k'); ; hold on; plot(t2,u_est2*(180/pi)); hold off; grid
+ylabel('u_2^*'); legend('u_2','u_2^*');
 subplot(813)
-plot(t,x1*(180/pi),'mo'); hold on; plot(t2,travel); hold off; grid
-ylabel('travel'); legend('Estimated travel','Measured travel');
+plot(t,x1*(180/pi),'ko'); hold on; plot(t2,travel); hold off; grid
+ylabel('travel'); legend('Estimated travel','Measured travel','Location','SouthWest');
 subplot(814)
-plot(t,x2*(180/pi),'mo'); hold on; plot(t2,travel_rate); hold off; grid
-ylabel('travel rate'); legend('Estimated travel rate','Measured travel rate','Location','Southeast');
+plot(t,x2*(180/pi),'ko'); hold on; plot(t2,travel_rate); hold off; grid
+ylabel('travel rate'); legend('Estimated travel rate','Measured travel rate','Location','Northeast');
 subplot(815)
-plot(t,x3*(180/pi),'mo'); hold on; plot(t2,pitch); hold off; grid
+plot(t,x3*(180/pi),'ko'); hold on; plot(t2,pitch); hold off; grid
 ylabel('pitch'); legend('Estimated pitch','Measured pitch');
 subplot(816)
-plot(t,x4*(180/pi),'mo'); hold on; plot(t2,pitch_rate); hold off; grid
+plot(t,x4*(180/pi),'ko'); hold on; plot(t2,pitch_rate); hold off; grid
 ylabel('pitch rate'); legend('Estimated pitch rate','Measured pitch rate');
 subplot(817)
-plot(t,x5*(180/pi),'mo'); hold on; 
-% plot(t2,elevation); hold off; grid
+plot(t,x5*(180/pi),'ko'); hold on; 
+plot(t2,elevation); hold off; grid
 ylabel('elevation'); legend('Estimated elevation','Measured elevation');
 subplot(818)
-plot(t,x6*(180/pi),'mo'); hold on; plot(t2,elevation_rate); hold off; grid
+plot(t,x6*(180/pi),'ko'); hold on; plot(t2,elevation_rate); hold off; grid
 ylabel('elevation rate'); legend('Estimated elevation rate','Measured elevation rate');
-
 xlabel('time [s]')
 
 

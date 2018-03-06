@@ -5,7 +5,7 @@
  *
  * Model version              : 1.174
  * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
- * C source code generated on : Tue Feb 13 15:16:20 2018
+ * C source code generated on : Tue Mar 06 16:21:41 2018
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -59,7 +59,6 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 void helikopter_output(void)
 {
   /* local block i/o variables */
-  real_T rtb_Derivative;
   real_T rtb_Backgain;
   real_T rtb_HILReadEncoderTimebase_o1;
   real_T rtb_HILReadEncoderTimebase_o2;
@@ -107,25 +106,6 @@ void helikopter_output(void)
           helikopter_DW.HILReadEncoderTimebase_Buffer[2];
       }
     }
-
-    /* Gain: '<S4>/Pitch: Count to rad' */
-    helikopter_B.PitchCounttorad = helikopter_P.PitchCounttorad_Gain *
-      rtb_HILReadEncoderTimebase_o2;
-
-    /* Gain: '<S8>/Gain' */
-    helikopter_B.Gain = helikopter_P.Gain_Gain * helikopter_B.PitchCounttorad;
-
-    /* Gain: '<S4>/Travel: Count to rad' */
-    helikopter_B.TravelCounttorad = helikopter_P.TravelCounttorad_Gain *
-      rtb_HILReadEncoderTimebase_o1;
-
-    /* Gain: '<S11>/Gain' */
-    helikopter_B.Gain_p = helikopter_P.Gain_Gain_a *
-      helikopter_B.TravelCounttorad;
-
-    /* SignalConversion: '<Root>/TmpSignal ConversionAtTo WorkspaceInport1' */
-    helikopter_B.TmpSignalConversionAtToWorkspac[0] = helikopter_B.Gain;
-    helikopter_B.TmpSignalConversionAtToWorkspac[1] = helikopter_B.Gain_p;
   }
 
   /* FromWorkspace: '<Root>/From Workspace' */
@@ -160,9 +140,9 @@ void helikopter_output(void)
       real_T t2 = pTimeValues[currTimeIndex + 1];
       if (t1 == t2) {
         if (t < t1) {
-          rtb_Derivative = pDataValues[currTimeIndex];
+          helikopter_B.FromWorkspace = pDataValues[currTimeIndex];
         } else {
-          rtb_Derivative = pDataValues[currTimeIndex + 1];
+          helikopter_B.FromWorkspace = pDataValues[currTimeIndex + 1];
         }
       } else {
         real_T f1 = (t2 - t) / (t2 - t1);
@@ -172,10 +152,24 @@ void helikopter_output(void)
         int_T TimeIndex= currTimeIndex;
         d1 = pDataValues[TimeIndex];
         d2 = pDataValues[TimeIndex + 1];
-        rtb_Derivative = (real_T) rtInterpolate(d1, d2, f1, f2);
+        helikopter_B.FromWorkspace = (real_T) rtInterpolate(d1, d2, f1, f2);
         pDataValues += 141;
       }
     }
+  }
+
+  if (rtmIsMajorTimeStep(helikopter_M)) {
+    /* Gain: '<S4>/Travel: Count to rad' */
+    helikopter_B.TravelCounttorad = helikopter_P.TravelCounttorad_Gain *
+      rtb_HILReadEncoderTimebase_o1;
+
+    /* Gain: '<S11>/Gain' */
+    helikopter_B.Gain = helikopter_P.Gain_Gain * helikopter_B.TravelCounttorad;
+
+    /* Sum: '<Root>/Sum5' incorporates:
+     *  Constant: '<Root>/Constant'
+     */
+    helikopter_B.Sum5 = helikopter_P.Constant_Value + helikopter_B.Gain;
   }
 
   /* TransferFcn: '<S4>/Travel: Transfer Fcn' */
@@ -187,6 +181,15 @@ void helikopter_output(void)
 
   /* Gain: '<S12>/Gain' */
   helikopter_B.Gain_d = helikopter_P.Gain_Gain_l * rtb_Backgain;
+  if (rtmIsMajorTimeStep(helikopter_M)) {
+    /* Gain: '<S4>/Pitch: Count to rad' */
+    helikopter_B.PitchCounttorad = helikopter_P.PitchCounttorad_Gain *
+      rtb_HILReadEncoderTimebase_o2;
+
+    /* Gain: '<S8>/Gain' */
+    helikopter_B.Gain_i = helikopter_P.Gain_Gain_a *
+      helikopter_B.PitchCounttorad;
+  }
 
   /* TransferFcn: '<S4>/Pitch: Transfer Fcn' */
   rtb_Backgain = 0.0;
@@ -197,6 +200,13 @@ void helikopter_output(void)
   /* Gain: '<S9>/Gain' */
   helikopter_B.Gain_b = helikopter_P.Gain_Gain_ae * rtb_Backgain;
   if (rtmIsMajorTimeStep(helikopter_M)) {
+    /* SignalConversion: '<Root>/TmpSignal ConversionAtTo WorkspaceInport1' */
+    helikopter_B.TmpSignalConversionAtToWorkspac[0] = helikopter_B.FromWorkspace;
+    helikopter_B.TmpSignalConversionAtToWorkspac[1] = helikopter_B.Sum5;
+    helikopter_B.TmpSignalConversionAtToWorkspac[2] = helikopter_B.Gain_d;
+    helikopter_B.TmpSignalConversionAtToWorkspac[3] = helikopter_B.Gain_i;
+    helikopter_B.TmpSignalConversionAtToWorkspac[4] = helikopter_B.Gain_b;
+
     /* Gain: '<S4>/Elevation: Count to rad' */
     helikopter_B.ElevationCounttorad = helikopter_P.ElevationCounttorad_Gain *
       rtb_HILReadEncoderTimebase_o3;
@@ -234,8 +244,8 @@ void helikopter_output(void)
    *  Sum: '<S5>/Sum2'
    *  Sum: '<S5>/Sum3'
    */
-  helikopter_B.Sum1 = ((rtb_Derivative - helikopter_P.Gain1_Gain *
-                        helikopter_B.Gain) * helikopter_P.K_pp -
+  helikopter_B.Sum1 = ((helikopter_B.FromWorkspace - helikopter_P.Gain1_Gain *
+                        helikopter_B.Gain_i) * helikopter_P.K_pp -
                        helikopter_P.Gain1_Gain * helikopter_B.Gain_b *
                        helikopter_P.K_pd) + helikopter_P.Vd_ff;
   if (rtmIsMajorTimeStep(helikopter_M)) {
@@ -258,7 +268,7 @@ void helikopter_output(void)
   /* Sum: '<S3>/Sum' incorporates:
    *  Constant: '<Root>/elevation_ref'
    */
-  rtb_Derivative = helikopter_P.elevation_ref_Value - rtb_Gain1_idx_4;
+  rtb_Gain1_idx_4 = helikopter_P.elevation_ref_Value - rtb_Gain1_idx_4;
 
   /* Sum: '<Root>/Sum2' incorporates:
    *  Constant: '<Root>/Vs_bias'
@@ -266,7 +276,7 @@ void helikopter_output(void)
    *  Gain: '<S3>/K_ep'
    *  Sum: '<S3>/Sum1'
    */
-  helikopter_B.Sum2 = ((helikopter_P.K_ep * rtb_Derivative + rtb_Backgain) -
+  helikopter_B.Sum2 = ((helikopter_P.K_ep * rtb_Gain1_idx_4 + rtb_Backgain) -
                        helikopter_P.K_ed * rtb_Gain1_idx_5) + helikopter_P.Vs_ff;
   if (rtmIsMajorTimeStep(helikopter_M)) {
   }
@@ -278,14 +288,14 @@ void helikopter_output(void)
     helikopter_P.Backgain_Gain;
 
   /* Gain: '<S3>/K_ei' */
-  helikopter_B.K_ei = helikopter_P.K_ei * rtb_Derivative;
+  helikopter_B.K_ei = helikopter_P.K_ei * rtb_Gain1_idx_4;
   if (rtmIsMajorTimeStep(helikopter_M)) {
   }
 
   /* Derivative: '<S4>/Derivative' */
   if ((helikopter_DW.TimeStampA >= helikopter_M->Timing.t[0]) &&
       (helikopter_DW.TimeStampB >= helikopter_M->Timing.t[0])) {
-    rtb_Derivative = 0.0;
+    rtb_Gain1_idx_4 = 0.0;
   } else {
     rtb_Gain1_idx_4 = helikopter_DW.TimeStampA;
     lastU = &helikopter_DW.LastUAtTimeA;
@@ -301,14 +311,14 @@ void helikopter_output(void)
       }
     }
 
-    rtb_Derivative = (helikopter_B.PitchCounttorad - *lastU) /
+    rtb_Gain1_idx_4 = (helikopter_B.PitchCounttorad - *lastU) /
       (helikopter_M->Timing.t[0] - rtb_Gain1_idx_4);
   }
 
   /* End of Derivative: '<S4>/Derivative' */
 
   /* Gain: '<S10>/Gain' */
-  helikopter_B.Gain_l = helikopter_P.Gain_Gain_a1 * rtb_Derivative;
+  helikopter_B.Gain_l = helikopter_P.Gain_Gain_a1 * rtb_Gain1_idx_4;
   if (rtmIsMajorTimeStep(helikopter_M)) {
   }
 
@@ -1150,10 +1160,10 @@ RT_MODEL_helikopter_T *helikopter(void)
   helikopter_M->Timing.stepSize1 = 0.002;
 
   /* External mode info */
-  helikopter_M->Sizes.checksums[0] = (3800322883U);
-  helikopter_M->Sizes.checksums[1] = (1491081374U);
-  helikopter_M->Sizes.checksums[2] = (2701066131U);
-  helikopter_M->Sizes.checksums[3] = (4169737621U);
+  helikopter_M->Sizes.checksums[0] = (2661780646U);
+  helikopter_M->Sizes.checksums[1] = (1564677371U);
+  helikopter_M->Sizes.checksums[2] = (3247566348U);
+  helikopter_M->Sizes.checksums[3] = (2483084926U);
 
   {
     static const sysRanDType rtAlwaysEnabled = SUBSYS_RAN_BC_ENABLE;
@@ -1177,13 +1187,18 @@ RT_MODEL_helikopter_T *helikopter(void)
   helikopter_M->ModelData.blockIO = ((void *) &helikopter_B);
 
   {
-    helikopter_B.PitchCounttorad = 0.0;
-    helikopter_B.Gain = 0.0;
+    int_T i;
+    for (i = 0; i < 5; i++) {
+      helikopter_B.TmpSignalConversionAtToWorkspac[i] = 0.0;
+    }
+
+    helikopter_B.FromWorkspace = 0.0;
     helikopter_B.TravelCounttorad = 0.0;
-    helikopter_B.Gain_p = 0.0;
-    helikopter_B.TmpSignalConversionAtToWorkspac[0] = 0.0;
-    helikopter_B.TmpSignalConversionAtToWorkspac[1] = 0.0;
+    helikopter_B.Gain = 0.0;
+    helikopter_B.Sum5 = 0.0;
     helikopter_B.Gain_d = 0.0;
+    helikopter_B.PitchCounttorad = 0.0;
+    helikopter_B.Gain_i = 0.0;
     helikopter_B.Gain_b = 0.0;
     helikopter_B.ElevationCounttorad = 0.0;
     helikopter_B.Gain_e = 0.0;
@@ -1299,9 +1314,9 @@ RT_MODEL_helikopter_T *helikopter(void)
   helikopter_M->Sizes.numU = (0);      /* Number of model inputs */
   helikopter_M->Sizes.sysDirFeedThru = (0);/* The model is not direct feedthrough */
   helikopter_M->Sizes.numSampTimes = (2);/* Number of sample times */
-  helikopter_M->Sizes.numBlocks = (55);/* Number of blocks */
-  helikopter_M->Sizes.numBlockIO = (17);/* Number of block outputs */
-  helikopter_M->Sizes.numBlockPrms = (141);/* Sum of parameter "widths" */
+  helikopter_M->Sizes.numBlocks = (57);/* Number of blocks */
+  helikopter_M->Sizes.numBlockIO = (19);/* Number of block outputs */
+  helikopter_M->Sizes.numBlockPrms = (142);/* Sum of parameter "widths" */
   return helikopter_M;
 }
 

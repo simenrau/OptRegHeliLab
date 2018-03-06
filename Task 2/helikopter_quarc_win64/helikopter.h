@@ -5,7 +5,7 @@
  *
  * Model version              : 1.174
  * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
- * C source code generated on : Tue Feb 13 15:16:20 2018
+ * C source code generated on : Tue Mar 06 16:21:41 2018
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -785,13 +785,15 @@
 
 /* Block signals (auto storage) */
 typedef struct {
-  real_T PitchCounttorad;              /* '<S4>/Pitch: Count to rad' */
-  real_T Gain;                         /* '<S8>/Gain' */
+  real_T FromWorkspace;                /* '<Root>/From Workspace' */
   real_T TravelCounttorad;             /* '<S4>/Travel: Count to rad' */
-  real_T Gain_p;                       /* '<S11>/Gain' */
-  real_T TmpSignalConversionAtToWorkspac[2];
+  real_T Gain;                         /* '<S11>/Gain' */
+  real_T Sum5;                         /* '<Root>/Sum5' */
   real_T Gain_d;                       /* '<S12>/Gain' */
+  real_T PitchCounttorad;              /* '<S4>/Pitch: Count to rad' */
+  real_T Gain_i;                       /* '<S8>/Gain' */
   real_T Gain_b;                       /* '<S9>/Gain' */
+  real_T TmpSignalConversionAtToWorkspac[5];
   real_T ElevationCounttorad;          /* '<S4>/Elevation: Count to rad' */
   real_T Gain_e;                       /* '<S6>/Gain' */
   real_T Sum;                          /* '<Root>/Sum' */
@@ -822,14 +824,14 @@ typedef struct {
   t_card HILInitialize_Card;           /* '<Root>/HIL Initialize' */
   t_task HILReadEncoderTimebase_Task;  /* '<S4>/HIL Read Encoder Timebase' */
   struct {
-    void *LoggedData;
-  } ToWorkspace_PWORK;                 /* '<Root>/To Workspace' */
-
-  struct {
     void *TimePtr;
     void *DataPtr;
     void *RSimInfoPtr;
   } FromWorkspace_PWORK;               /* '<Root>/From Workspace' */
+
+  struct {
+    void *LoggedData;
+  } ToWorkspace_PWORK;                 /* '<Root>/To Workspace' */
 
   struct {
     void *LoggedData;
@@ -1164,16 +1166,13 @@ struct P_helikopter_T_ {
   boolean_T HILInitialize_set_pwm_params__f;/* Mask Parameter: HILInitialize_set_pwm_params__f
                                              * Referenced by: '<Root>/HIL Initialize'
                                              */
-  real_T PitchCounttorad_Gain;         /* Expression: 2*pi /4096
-                                        * Referenced by: '<S4>/Pitch: Count to rad'
-                                        */
-  real_T Gain_Gain;                    /* Expression: 180/pi
-                                        * Referenced by: '<S8>/Gain'
+  real_T Constant_Value;               /* Expression: 180
+                                        * Referenced by: '<Root>/Constant'
                                         */
   real_T TravelCounttorad_Gain;        /* Expression: 2*pi/8192
                                         * Referenced by: '<S4>/Travel: Count to rad'
                                         */
-  real_T Gain_Gain_a;                  /* Expression: 180/pi
+  real_T Gain_Gain;                    /* Expression: 180/pi
                                         * Referenced by: '<S11>/Gain'
                                         */
   real_T TravelTransferFcn_A;          /* Computed Parameter: TravelTransferFcn_A
@@ -1187,6 +1186,12 @@ struct P_helikopter_T_ {
                                         */
   real_T Gain_Gain_l;                  /* Expression: 180/pi
                                         * Referenced by: '<S12>/Gain'
+                                        */
+  real_T PitchCounttorad_Gain;         /* Expression: 2*pi /4096
+                                        * Referenced by: '<S4>/Pitch: Count to rad'
+                                        */
+  real_T Gain_Gain_a;                  /* Expression: 180/pi
+                                        * Referenced by: '<S8>/Gain'
                                         */
   real_T PitchTransferFcn_A;           /* Computed Parameter: PitchTransferFcn_A
                                         * Referenced by: '<S4>/Pitch: Transfer Fcn'

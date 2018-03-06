@@ -129,7 +129,7 @@ RELATIVE_PATH_TO_ANCHOR   = ..
 MODELREF_TARGET_TYPE      = NONE
 
 #-- Support for parallel builds
-START_DIR         = E:\HELILA~2\TASK2~1
+START_DIR         = E:\OPTREG~1\TASK2~1
 MASTER_ANCHOR_DIR = 
 
 #-- Support multi-instance code

@@ -5,7 +5,7 @@
  *
  * Model version              : 1.174
  * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
- * C source code generated on : Tue Feb 13 15:16:20 2018
+ * C source code generated on : Tue Mar 06 16:21:41 2018
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -257,11 +257,8 @@ P_helikopter_T helikopter_P = {
   0,                                   /* Mask Parameter: HILInitialize_set_pwm_params__f
                                         * Referenced by: '<Root>/HIL Initialize'
                                         */
-  0.0015339807878856412,               /* Expression: 2*pi /4096
-                                        * Referenced by: '<S4>/Pitch: Count to rad'
-                                        */
-  57.295779513082323,                  /* Expression: 180/pi
-                                        * Referenced by: '<S8>/Gain'
+  180.0,                               /* Expression: 180
+                                        * Referenced by: '<Root>/Constant'
                                         */
   0.00076699039394282058,              /* Expression: 2*pi/8192
                                         * Referenced by: '<S4>/Travel: Count to rad'
@@ -280,6 +277,12 @@ P_helikopter_T helikopter_P = {
                                         */
   57.295779513082323,                  /* Expression: 180/pi
                                         * Referenced by: '<S12>/Gain'
+                                        */
+  0.0015339807878856412,               /* Expression: 2*pi /4096
+                                        * Referenced by: '<S4>/Pitch: Count to rad'
+                                        */
+  57.295779513082323,                  /* Expression: 180/pi
+                                        * Referenced by: '<S8>/Gain'
                                         */
   -30.0,                               /* Computed Parameter: PitchTransferFcn_A
                                         * Referenced by: '<S4>/Pitch: Transfer Fcn'

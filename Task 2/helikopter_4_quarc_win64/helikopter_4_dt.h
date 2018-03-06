@@ -3,9 +3,9 @@
  *
  * Code generation for model "helikopter_4".
  *
- * Model version              : 1.178
+ * Model version              : 1.179
  * Simulink Coder version : 8.6 (R2014a) 27-Dec-2013
- * C source code generated on : Tue Feb 20 16:45:31 2018
+ * C source code generated on : Tue Feb 27 15:59:50 2018
  *
  * Target selection: quarc_win64.tlc
  * Note: GRT includes extra infrastructure and instrumentation for prototyping
@@ -58,7 +58,7 @@ static const char_T * rtDataTypeNames[] = {
 
 /* data type transitions for block I/O structure */
 static DataTypeTransition rtBTransitions[] = {
-  { (char_T *)(&helikopter_4_B.u[0]), 0, 0, 27 }
+  { (char_T *)(&helikopter_4_B.TravelCounttorad), 0, 0, 27 }
   ,
 
   { (char_T *)(&helikopter_4_DW.HILInitialize_AIMinimums[0]), 0, 0, 70 },
@@ -67,13 +67,13 @@ static DataTypeTransition rtBTransitions[] = {
 
   { (char_T *)(&helikopter_4_DW.HILReadEncoderTimebase_Task), 15, 0, 1 },
 
-  { (char_T *)(&helikopter_4_DW.FromWorkspace_PWORK.TimePtr), 11, 0, 14 },
+  { (char_T *)(&helikopter_4_DW.FromWorkspace_PWORK.TimePtr), 11, 0, 15 },
 
   { (char_T *)(&helikopter_4_DW.HILInitialize_ClockModes[0]), 6, 0, 46 },
 
   { (char_T *)(&helikopter_4_DW.HILInitialize_POSortedChans[0]), 7, 0, 8 },
 
-  { (char_T *)(&helikopter_4_DW.FromWorkspace_IWORK.PrevIndex), 10, 0, 1 }
+  { (char_T *)(&helikopter_4_DW.FromWorkspace_IWORK.PrevIndex), 10, 0, 2 }
 };
 
 /* data type transition table for block I/O structure */
@@ -84,7 +84,7 @@ static DataTypeTransitionTable rtBTransTable = {
 
 /* data type transitions for Parameters structure */
 static DataTypeTransition rtPTransitions[] = {
-  { (char_T *)(&helikopter_4_P.K_ed), 0, 0, 24 },
+  { (char_T *)(&helikopter_4_P.K[0]), 0, 0, 36 },
 
   { (char_T *)(&helikopter_4_P.HILReadEncoderTimebase_clock), 6, 0, 10 },
 
@@ -92,7 +92,7 @@ static DataTypeTransition rtPTransitions[] = {
 
   { (char_T *)(&helikopter_4_P.HILInitialize_active), 8, 0, 35 },
 
-  { (char_T *)(&helikopter_4_P.Constant_Value), 0, 0, 31 },
+  { (char_T *)(&helikopter_4_P.Constant_Value), 0, 0, 32 },
 
   { (char_T *)(&helikopter_4_P.HILReadEncoderTimebase_Active), 8, 0, 2 }
 };
