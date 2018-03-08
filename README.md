@@ -1,3 +1,3 @@
-# OptRegHeliLab
+Helicopter Lab | TTK4135 Optimization and Control
 
-#Optimization and Control
+#getin
